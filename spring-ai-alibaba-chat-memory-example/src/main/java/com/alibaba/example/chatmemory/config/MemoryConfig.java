@@ -82,7 +82,7 @@ public class MemoryConfig {
 				.host(redisHost)
 				.port(redisPort)
 				// 若没有设置密码则注释该项
-//				.password(redisPassword)
+				.password(redisPassword)
 				.timeout(redisTimeout)
 				.build();
 	}
