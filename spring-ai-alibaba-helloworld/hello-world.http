@@ -1,0 +1,11 @@
+# DashScope Chat API
+
+### Chat Client Simple Chat
+GET http://127.0.0.1:18080/helloworld/simple/chat?query=请记住你是影子&conversation_id=yingzi
+
+### Chat Client Stream Chat
+GET http://127.0.0.1:18080/helloworld/stream/chat
+
+
+### Chat Model Simple Chat
+GET http://127.0.0.1:18080/helloworld/advisor/chat/yingzi

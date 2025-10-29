@@ -18,18 +18,13 @@ package com.alibaba.cloud.ai.example.helloworld;
 
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author yuluo
@@ -47,14 +42,26 @@ public class HelloworldController {
     public HelloworldController(ChatClient.Builder chatClientBuilder) {
 
         this.dashScopeChatClient = chatClientBuilder
+                //使用预设的系统提示语；
                 .defaultSystem(DEFAULT_PROMPT)
+                //具备基于窗口的消息记忆功能，支持多轮对话；
                 .defaultAdvisors(
-                    MessageChatMemoryAdvisor.builder(MessageWindowChatMemory.builder().build()).build())
+                        MessageChatMemoryAdvisor.builder(
+                                MessageWindowChatMemory.builder().build()
+                        ).build())
+                //能够记录对话日志；logging:
+                //  level:
+                //    org:
+                //      springframework:
+                //        ai:
+                //          chat:
+                //            client:
+                //              advisor: DEBUG  开启日志可以查看到这个Advisors是记录日志的
                 .defaultAdvisors(new SimpleLoggerAdvisor())
-                // 设置 ChatClient 中 ChatModel 的 Options 参数
+                // 设置 ChatClient 中 ChatModel 的 Options 参数在生成回复时应用特定的
                 .defaultOptions(
-                        DashScopeChatOptions.builder()
-                                .withTopP(0.7)
+                        //  在生成回复时应用特定的 top-p 采样策略以平衡创造力和准确性
+                        DashScopeChatOptions.builder().withTopP(0.7)
                                 .build()
                 )
                 .build();
@@ -76,7 +83,10 @@ public class HelloworldController {
     public Flux<String> streamChat(@RequestParam(value = "query", defaultValue = "你好，很高兴认识你，能简单介绍一下自己吗？") String query, HttpServletResponse response) {
 
         response.setCharacterEncoding("UTF-8");
-        return dashScopeChatClient.prompt(query).stream().content();
+        return dashScopeChatClient.prompt(query)
+//               每次调用时手动设置options
+                .options(DashScopeChatOptions.builder().withTopP(0.8).build())
+                .stream().content();
     }
 
     /**
@@ -86,7 +96,7 @@ public class HelloworldController {
      * 你好，jack！很高兴认识你。在接下来的对话中，我会记得带上你的名字。有什么想聊的吗？
      * http://127.0.0.1:18080/helloworld/advisor/chat/123?query=我叫什么名字？
      * 你叫jack呀。有什么事情想要分享或者讨论吗，jack？
-     *
+     * <p>
      * refer: https://docs.spring.io/spring-ai/reference/api/chat-memory.html#_memory_in_chat_client
      */
     @GetMapping("/advisor/chat/{conversationId}")

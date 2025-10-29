@@ -8,3 +8,12 @@ spring:
   ai:
     dashscope:
       api-key: ${AI_DASHSCOPE_API_KEY}
+
+logging:
+  level:
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
