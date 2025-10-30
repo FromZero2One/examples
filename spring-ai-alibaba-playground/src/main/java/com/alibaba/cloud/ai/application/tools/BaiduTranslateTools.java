@@ -124,7 +124,12 @@ public class BaiduTranslateTools implements BiFunction<BaiduTranslateTools.Baidu
 		if (baiduTranslateToolRequest.input != null && StringUtils.hasText(baiduTranslateToolRequest.input.q) && StringUtils.hasText(baiduTranslateToolRequest.input.from) && StringUtils.hasText(baiduTranslateToolRequest.input.to)) {
 			String salt = String.valueOf(random.nextInt(100000));
 			String sign = DigestUtils.md5DigestAsHex((this.appId + baiduTranslateToolRequest.input.q + salt + this.secretKey).getBytes());
-			String url = UriComponentsBuilder.fromHttpUrl("https://fanyi-api.baidu.com/api/trans/vip/translate")
+//			String url = UriComponentsBuilder.fromHttpUrl("https://fanyi-api.baidu.com/api/trans/vip/translate")
+//					.toUriString();
+			String url = UriComponentsBuilder.newInstance()
+					.scheme("https")
+					.host("fanyi-api.baidu.com")
+					.path("/api/trans/vip/translate")
 					.toUriString();
 
 			try {
