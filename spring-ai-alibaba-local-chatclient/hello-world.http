@@ -1,0 +1,15 @@
+# DashScope Chat API
+
+### Chat Client Simple Chat
+GET http://127.0.0.1:18088/chatmodel/simple/chat?query=chatModel
+
+### Chat Client Stream Chat
+GET http://127.0.0.1:18088/chatmodel/stream/chat
+
+
+### Chat Client Simple Chat
+GET http://127.0.0.1:18088/chatclient/simple/chat?query=chatClinet
+
+### Chat Client Stream Chat
+GET http://127.0.0.1:18088/chatclient/stream/chat
+

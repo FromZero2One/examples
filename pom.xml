@@ -65,6 +65,8 @@
 		<module>spring-ai-alibaba-video-example</module>
 		<module>spring-ai-alibaba-agent-example</module>
 		<module>spring-ai-alibaba-image-example</module>
+		<module>spring-ai-alibaba-local</module>
+		<module>spring-ai-alibaba-local-chatclient</module>
 		<module>spring-ai-alibaba-prompt-example</module>
 		<module>spring-ai-alibaba-usecase-example</module>
 		<module>spring-ai-alibaba-structured-example</module>

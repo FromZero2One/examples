@@ -1,15 +1,17 @@
 server:
-  port: 18080
+  port: 18088
 
 spring:
   application:
-    name: spring-ai-alibaba-helloworld
+    name: spring-ai-alibaba-local-chatclient
 
   ai:
     dashscope:
       api-key: ${AI_DASHSCOPE_API_KEY}
-#      api-key: sk-6dffc5f8ce384fd18a29131a3f902627
-
+    ollama:
+      base-url: http://127.0.0.1:11434
+      chat:
+        model: qwen3:4b
 logging:
   level:
     org:

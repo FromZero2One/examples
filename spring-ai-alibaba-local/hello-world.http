@@ -1,0 +1,8 @@
+# DashScope Chat API
+
+### Chat Client Simple Chat
+GET http://127.0.0.1:18088/ollama/simple/chat?query=请记住你是影子
+
+### Chat Client Stream Chat
+GET http://127.0.0.1:18088/ollama/stream/chat
+
