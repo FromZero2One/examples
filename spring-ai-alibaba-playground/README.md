@@ -27,7 +27,7 @@ Playground 作为一个 AI 智能体应用，依赖大模型等在线服务，�
   - 【可选】[阿里云百炼 创建知识库](https://bailian.console.aliyun.com/?tab=app#/knowledge-base)，知识库服务，默认知识库名为saa-playground-2
   - 【可选】[百度翻译 appId 和 secretKey](https://api.fanyi.baidu.com/product/113)，使用 Tool Call 时必须，示例 `export BAIDU_TRANSLATE_APP_ID=xxx`、`export BAIDU_TRANSLATE_SECRET_KEY=xxx`
   - 【可选】[百度地图 api key](https://lbs.baidu.com/faq/api)，使用 Tool Call 必须，示例 `export BAIDU_MAP_API_KEY=xxx`
-  - 【可选】[阿里云 IQS 服务 apikey](https://help.aliyun.com/document_detail/2870227.html?)，使用联网搜索必须，示例 `export IQS_SEARCH_API_KEY=xxx`
+  - 【可选】[阿里云 IQS 服务 apikey](https://help.aliyun.com/document_detail/2870227.html)，使用ModuleRag联网搜索必须，示例 `export WEB_SEARCH_TYPE=ModuleRag`、`export IQS_SEARCH_API_KEY=xxx`
   - 【可选】[阿里云 AnalyticDB 向量数据库](https://help.aliyun.com/zh/analyticdb/analyticdb-for-postgresql/getting-started/instances-with-vector-engine-optimization-enabled/)，使用 RAG 时可开启（默认使用内存向量数据库）。先使用 `export VECTOR_STORE_TYPE=analyticdb` 开启 AnalyticDB，然后配置相关参数
 
 示例 Docker 运行命令：
@@ -64,6 +64,7 @@ mvn clean install -DskipTests
 
 **3. 运行项目**
 ```shell
+export AI_DASHSCOPE_API_KEY=your_api_key
 java -jar ./target/app.jar
 ```
 
